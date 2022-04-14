@@ -1,13 +1,14 @@
 import React from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
+import Breakfast from './Breakfast/Breakfast';
 import './Home.css';
 
 const Home = () => {
   return (
     <div className='container mt-5 mb-5'>
-      <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-2">
+      <Tabs defaultActiveKey="home" id="uncontrolled-tab-example" className="mb-2">
         <Tab eventKey="home" title="Breakfast">
-          <h3 className='mt-4'>Breakfast</h3>
+          <Breakfast></Breakfast>
         </Tab>
         <Tab eventKey="profile" title="Lunch">
         <h3 className='mt-4'>Lunch</h3>
