@@ -3,13 +3,11 @@
   width: 200px;
   margin: auto;
   margin-top: 10px;
+  align-items: center;
+  cursor: pointer;
 }
 .description{
   margin-bottom: 0px;
-}
-.link{
-  text-decoration: none;
-  color: black;
 }
 .price{
   margin-top: 2px;

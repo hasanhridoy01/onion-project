@@ -1,7 +1,9 @@
 import React from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import Breakfast from './Breakfast/Breakfast';
+import Dinner from './Dinner/Dinner';
 import './Home.css';
+import Lunch from './Lunch/Lunch';
 
 const Home = () => {
   return (
@@ -11,12 +13,17 @@ const Home = () => {
           <Breakfast></Breakfast>
         </Tab>
         <Tab eventKey="profile" title="Lunch">
-        <h3 className='mt-4'>Lunch</h3>
+          <Lunch></Lunch>
         </Tab>
         <Tab eventKey="contact" title="Dinner">
-        <h3 className='mt-4'>Dinner</h3>
+          <Dinner></Dinner>
         </Tab>
       </Tabs>
+      {/* <div className="items">
+        <a onClick={BreakfastTabs} href="">Breakfast</a>
+        <a href="">Lunch</a>
+        <a href="">Dinner</a>
+      </div> */}
     </div>
   );
 };

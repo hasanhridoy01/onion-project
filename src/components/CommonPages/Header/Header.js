@@ -7,9 +7,9 @@ import './Header.css';
 const Header = () => {
   return (
     <div>
-      <Navbar collapseOnSelect sticky='top' expand="lg" bg="light" variant="dark">
+      <Navbar collapseOnSelect fixed="top" expand="lg" bg="light" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/home">
             <img className='logo' src={logo} alt="" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -18,10 +18,10 @@ const Header = () => {
             {/* <FontAwesomeIcon icon="fa-solid fa-cart-shopping" /> */}
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              <Nav.Link href="/login">
                 <button className='btn btn-light round'>Login</button>
               </Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
+              <Nav.Link eventKey={2} href="/signup">
                 <button className='btn btn-danger round'>Sing up</button>
               </Nav.Link>
             </Nav>
