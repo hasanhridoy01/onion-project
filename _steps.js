@@ -17,7 +17,14 @@
   return children;,X
  * 12.Go to react router authentication and click StackBlitz,X
  * 13.Edit Login page const from = location.state?.from?.pathname || '/' and navigate (form,{replace: true});X
- * 14.
+ * 14.resetPassword import { useSendPasswordResetEmail } from 'react-firebase-hooks/auth', const [sendPasswordResetEmail, sending, error] = useSendPasswordResetEmail(
+    auth
+  );X
+ * 15.Disable={!agree} Checkbox conditional css class useSate use and false value,
+ * 16.email verification send with email useCreateUserWithEmailAndPassword(auth, {sendEmailVerification:true});
+ * 17.Update name const [updateProfile, updating, updateError] = useUpdateProfile(auth); await updateProfile({ displayName, photoURL });alert('Updated profile');
+ * 18.npm install --save react-toastify, import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';,
  */
 
 /**

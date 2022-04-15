@@ -1,34 +1,52 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './SignUp.css';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 
 const SignUp = () => {
+  const nameRef = useRef('');
+  const emailRef = useRef('');
+  const passwordRef = useRef('');
   const navigate = useNavigate();
+  const [agree, setAgree] = useState(false);
+  let errorElement;
   //Create a new user firebaseHooks
   const [
     createUserWithEmailAndPassword,
     user,
     loading,
     error,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
+
+  //update your name
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
   //Update User Profile
 
-  const handleRegister = (e) => {
+  // error handle
+  if(error || updateError){
+    errorElement = <p className='text-danger'>{error?.message}</p>
+  }
+
+  if(user){
+    console.log(user);
+  }
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const displayName = nameRef.current.value;
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
     if(password.length < 6){
       alert('please at list 6 character password');
     }else{
-      createUserWithEmailAndPassword(email, password);
-      alert('User Added Successful!');
-      navigate('/login');
+      await createUserWithEmailAndPassword(email, password);
+      await updateProfile({ displayName});
+      alert('Updated profile');
+      navigate('/home');
     }
   } 
   return (
@@ -39,31 +57,29 @@ const SignUp = () => {
             <Form onSubmit={handleRegister}>
             <Form.Group className="mb-3">
                 <Form.Label>Name</Form.Label>
-                <Form.Control name='name' type="text" placeholder="Enter name" />
+                <Form.Control ref={nameRef} name='name' type="text" placeholder="Enter name" />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control name='email' type="email" placeholder="Enter email" required />
+                <Form.Control ref={emailRef} name='email' type="email" placeholder="Enter email" required />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control name='password' type="password" placeholder="Password" />
+                <Form.Control ref={passwordRef} name='password' type="password" placeholder="Password" />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
+                <Form.Check onClick={() => setAgree(!agree)} name='terms' id='terms' type="checkbox" label="Accept Terms and Condition" />
               </Form.Group>
 
               <p>Already have an account? <Link to='/login' className='login'>Login</Link></p>
-              <p className='text-danger'>{error?.message}</p>
+              {errorElement}
               {
                 loading && <p>Loading.....{loading}</p> 
               }
-              <Button variant="primary" type="submit">
-                Registation
-              </Button>
+              <button disabled={!agree} className='btn btn-primary'>Registation</button>
             </Form>
           </div>
         </div>
